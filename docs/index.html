@@ -193,17 +193,27 @@
             <!-- Multimodal Large Language Models (MLLMs) excel at simple vision-language tasks but struggle when faced with complex tasks that require multiple capabilities, such as object recognition, spatial understanding, and counting. Visual Instruction Tuning (VIT), a critical training step for MLLMs, has traditionally focused on scaling data volume, but has overlooked the compositional complexity of training examples, limiting their effectiveness in real-world scenarios.  -->
           </p>
           <p>
-            We propose COMPACT (COMPositional Atomic-to-complex Visual Capability Tuning), a method that explicitly trains MLLMs on combinations of atomic capabilities to learn complex capabilities more efficiently. COMPACT controls the compositional complexity of the training examples to generate a dataset with a balanced complexity distribution. It outperforms the LLaVA-665K VIT on multi-capability benchmarks with less than 10% of its data budget. 
+            We propose COMPACT (COMPositional Atomic-to-complex Visual Capability Tuning), 
+            a data recipe that explicitly controls for the compositional complexity of the training examples. 
+            COMPACT data allows MLLMs to train on combinations of atomic capabilities to learn complex capabilities more efficiently. 
+            Across complex multi-capability benchmarks, COMPACT outperforms the LLaVA-665K VIT 
+            while using less than 10% of its data budget. 
           </p>
           <p>
-            Training on COMPACT samples, which involve up to three atomic capabilities, generalize well to tasks that demand even higher capability requirements. Notably, COMPACT shows 49.8% improvement on MMStar and 69.2% improvement on MM-Vet from the full-scale VIT for questions that require four atomic capabilities. COMPACT offers a scalable, data-efficient, visual compositional tuning recipe to improve on complex visual-language tasks.
+            Training on COMPACT data, whose samples require up to three atomic capabilities, 
+            generalizes well to tasks that have even higher capability requirements. 
+            For example, COMPACT achieves a substantial 83.3% improvement on MMStar and 94.0% improvement 
+            on MM-Vet compared to the full-scale VIT on particularly complex questions that require four or more atomic capabilities. 
+            COMPACT offers a scalable, data-efficient, visual compositional tuning recipe to improve on complex visual-language tasks.
           </p>
         </div>
 
         <div class="content has-text-centered">
           <img src="./static/images/2.png" alt="Comparison of current VIT and COMPACT" class="small-centered-image">
           <p>
-            <b>Current Visual Instruction Tuning Data vs. Compositional Tuning Data:</b> Comparison between visual instruction tuning data (LLaVA-665K VIT) and our compositional tuning data (COMPACT). The VIT data is dominated by simple queries (k = 1), while our COMPACT data is balanced across compositional complexity levels (k = 1, 2, 3).
+            <b>Current Visual Instruction Tuning Data vs. Compositional Tuning Data:</b> 
+            The VIT data is dominated by simple queries (k = 1), while our COMPACT data is balanced 
+            across compositional complexity levels (k = 1, 2, 3).
           </p>
         </div>
       </div>
@@ -218,21 +228,28 @@
         <h2 class="title is-3">Method</h2>
         <div class="content has-text-justified">
           <p>
-            We propose COMPACT, a data recipe that scales capabilities of MLLMs from atomic (k = 1) to composite (k > 1) complexity levels. We introduce the concept of atomic visual capabilities, which serve as the foundational building blocks of complex visual tasks. Our approach generates multi-capability questions by prompting vision-language models to create questions that require natural integration of exactly k atomic visual capabilities.
+            We propose COMPACT, a data recipe that scales capabilities of MLLMs from atomic (k = 1) to composite (k > 1) complexity levels. 
+            Our approach generates multi-capability training data by prompting vision-language models to create questions that 
+            integrate k = (1, 2, 3) atomic visual capabilities.
           </p>
           
           <div class="has-text-centered">
             <img src="./static/images/1.png" alt="COMPACT Data Generation Pipeline" class="small-centered-image">
           </div>
           <p>
-            <b>COMPACT Data Generation Pipeline:</b> (Left): We sample atomic capabilities (k = 1) such as color, object recognition, and spatial relationship. (Center): We generate questions (k = 1, 2, 3) that integrate all the sampled capabilities. (Right): We verify the quality of generated conversations and combine them with instruction tuning data to maintain instruction following capability.
+            <b>COMPACT Data Generation Pipeline:</b> (Left): We sample atomic capabilities (k = 1) such as color, object recognition, and spatial relationship. 
+            (Center): We generate questions (k = 1, 2, 3) that integrate all the sampled capabilities. 
+            (Right): We verify the quality of generated conversations and combine them with instruction tuning data to maintain instruction following capability.
           </p>
         </div>
         
         <h3 class="title is-4">Atomic Visual Capabilities</h3>
         <div class="content has-text-justified flex-container">
           <p>
-            Atomic capabilities are foundational skills that can be combined to solve complex tasks. For example, a model needs to acquire object recognition, color attribution, and spatial relationship understanding capabilities to identify how objects of different colors are spatially oriented. We define the number of atomic capabilities required to solve a task as its compositional complexity k.
+            Atomic capabilities are foundational skills that can be combined to solve complex tasks. 
+            For example, a model needs to acquire object recognition, color attribution, and spatial relationship understanding capabilities 
+            to identify how objects of different colors are spatially oriented. We define the number of atomic capabilities required to solve 
+            a task as its compositional complexity k.
           </p>
           <img src="./static/images/3.png" alt="Atomic Visual Capabilities" class="small-centered-image">
         </div>
@@ -319,12 +336,17 @@
         
         <div class="content has-text-justified">
           <p>
-            With just 32K samples of our compositional tuning data and 5% of the LLaVA-665K VIT data (only 10% of the size of the VIT dataset in total), COMPACT matches the performance of full-scale VIT (100.18% relative score) and demonstrates exceptional generalization to complex tasks.
+            With 32K samples of our compositional tuning data and 5% of the LLaVA-665K VIT data (only 10% of the size of the full VIT dataset), 
+            COMPACT matches the performance of full-scale VIT (100.18% relative score) and demonstrates exceptional generalization to complex tasks.
           </p>
           
           <div class="has-text-centered">
             <p>
-              <b>Baseline Comparisons:</b> Performance comparison of COMPACT with baselines. With only 5% of the LLaVA-665K VIT data and 32K of our compositional tuning data (65K total), COMPACT outperforms the random subset of the VIT data, gradient-based approach selected subset of the VIT data, and even the full VIT data on diverse multimodal benchmarks. The best and second best results for each benchmark are shown in <strong>bold</strong> and <u>underlined</u>, respectively. COMPACT integrates atomic capabilities into tasks of higher compositional complexity, enabling models to generalize and handle complex tasks without explicit decomposition.
+              <b>Baseline Comparisons:</b> Performance comparison of COMPACT with baselines. COMPACT (65K) outperforms the random subset of 
+              the VIT data (65K), gradient-based approach selected subset of the VIT data (65K), and even the full VIT data (665K) on 
+              diverse multimodal benchmarks. The best and second best results for each benchmark are shown in <strong>bold</strong> and
+               <u>underlined</u>, respectively. COMPACT integrates atomic capabilities into tasks of higher compositional complexity, 
+               enabling models to generalize and handle complex tasks without explicit decomposition.
             </p>
             <div style="overflow-x: auto;">
               <table class="table is-bordered is-striped is-hoverable is-fullwidth">
@@ -405,21 +427,29 @@
             <img src="/api/placeholder/800/400" alt="Performance Across Complexity" class="small-centered-image">
           </div> -->
           <p>
-            <b>Compositional Generalization to Higher Complexities:</b> Performance comparison across compositional complexities (k). COMPACT shows competitive performance against LLaVA-665K VIT training. It exceeds the LLaVA-665K baseline at higher compositional complexity tasks (k = 4 and k = 5) while using significantly less training data.
+            <b>Compositional Generalization to Higher Complexities:</b> We compare the performance of COMPACT (65K) and LLaVA-665K VIT (665K) at each 
+            compositional complexity (k) level. COMPACT exceeds the LLaVA-665K baseline at k = (3,4,5) tasks while using significantly less training data.
           </p>
           
           <div class="has-text-centered">
             <img src="./static/images/4.png" alt="Performance Across Compositional Tuning Data Scales" class="small-centered-image">
           </div>
           <p>
-            <b>Performance Across Compositional Tuning Data Scales:</b> We compare COMPACT (solid lines) with LLaVA-665K VIT (dashed lines) across benchmarks as the number of compositional tuning data increases from 2K to 32K. COMPACT consistently outperforms LLaVA-665K VIT across data regimes, achieving better performance with fewer data. The performance gap is pronounced for complex reasoning benchmarks such as MM-Vet and MMStar, where the 8K COMPACT model often matches or exceeds the LLaVA-665K VIT baseline at 32K. This demonstrates the data efficiency of COMPACT, requiring substantially less data than LLaVA-665K VIT to achieve comparable or better results.
+            <b>Performance Across Compositional Tuning Data Scales:</b> We fix the VIT subset (5% of LLaVA-665K) and scale the
+            compositional tuning data in COMPACT from 2K to 32K. For comparison, we remove the compositional tuning data and add more VIT data
+            (2K-32K) instead to prepare VIT only baselines with equal data budgets. With much fewer data, COMPACT (solid lines) consistently outperforms the 
+            VIT only baselines (dashed lines). The performance gap is pronounced for complex reasoning benchmarks such as MM-Vet and MMStar,
+            where the 8K COMPACT model often exceeds the VIT only baseline at 32K. This demonstrates the data efficiency of
+            COMPACT, requiring substantially less data than LLaVA-665K VIT to achieve comparable or better results.
           </p>
           
           <div class="has-text-centered">
             <img src="/api/placeholder/800/400" alt="Qualitative Comparison" class="small-centered-image">
           </div>
           <p>
-            <b>Qualitative Comparison:</b> Examples showing responses from our compositionally-tuned COMPACT model and LLaVA-665K VIT model on complex queries that require multiple capabilities (k ≥ 3). Our model demonstrates better integration of visual capabilities which leads to more accurate responses.
+            <b>Qualitative Comparison:</b> Examples that show responses from our compositionally-tuned COMPACT model and LLaVA-665K VIT 
+            model on complex queries that require multiple capabilities (k ≥ 3). Our model demonstrates better integration of visual 
+            capabilities which leads to more accurate responses.
           </p>
         </div>
       </div>
