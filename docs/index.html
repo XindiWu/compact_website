@@ -209,9 +209,9 @@
         </div>
 
         <div class="content has-text-centered">
-          <img src="./static/images/2.png" alt="Comparison of current VIT and COMPACT" class="small-centered-image">
+          <img src="./static/images/vit_vs_compact.png" alt="Comparison of current VIT and COMPACT" class="small-centered-image">
           <p>
-            <b>Current Visual Instruction Tuning Data vs. Compositional Tuning Data:</b> 
+            <b>Current Visual Instruction Tuning Data vs. Our Compositional Tuning Data:</b> 
             The VIT data is dominated by simple queries (k = 1), while our COMPACT data is balanced 
             across compositional complexity levels (k = 1, 2, 3).
           </p>
@@ -228,13 +228,13 @@
         <h2 class="title is-3">Method</h2>
         <div class="content has-text-justified">
           <p>
-            We propose COMPACT, a data recipe that scales capabilities of MLLMs from atomic (k = 1) to composite (k > 1) complexity levels. 
+            COMPACT scales capabilities of MLLMs from atomic (k = 1) to composite (k > 1) complexity levels. 
             Our approach generates multi-capability training data by prompting vision-language models to create questions that 
             integrate k = (1, 2, 3) atomic visual capabilities.
           </p>
           
           <div class="has-text-centered">
-            <img src="./static/images/1.png" alt="COMPACT Data Generation Pipeline" class="small-centered-image">
+            <img src="./static/images/pipeline.png" alt="COMPACT Data Generation Pipeline" class="small-centered-image">
           </div>
           <p>
             <b>COMPACT Data Generation Pipeline:</b> (Left): We sample atomic capabilities (k = 1) such as color, object recognition, and spatial relationship. 
@@ -251,7 +251,7 @@
             to identify how objects of different colors are spatially oriented. We define the number of atomic capabilities required to solve 
             a task as its compositional complexity k.
           </p>
-          <img src="./static/images/3.png" alt="Atomic Visual Capabilities" class="small-centered-image">
+          <img src="./static/images/atomic_capabilities.png" alt="Atomic Visual Capabilities" class="small-centered-image">
         </div>
         
         <p>
