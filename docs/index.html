@@ -461,7 +461,7 @@
             We conduct a series of ablation studies to investigate key design considerations in COMPACT.         
           </p>
           <p>
-            <b>Compositional Complexity Distribution:</b> In order to show that the performance improvement of COMPACT mainly comes from the balanced 
+            <b>A. Compositional Complexity Distribution:</b> In order to show that the performance improvement of COMPACT mainly comes from the balanced 
             distribution of compositional complexity in the compositional tuning data, we analyze the impact on the performance when its compositional 
             complexity is unbalanced. We generate a 16K-sample compositional tuning data whose distribution of k resembles LLaVA-665K VIT data. 
             The performance of unbalanced COMPACT (96.28%) is close to random baseline. However, the balanced COMPACT (original) performance jumps to 98.83%, 
@@ -543,34 +543,38 @@
           </table>
         </div>
 
-        <div class = "content has-text-justified">
-          <p>
-            <b>Atomic Capability Coverage:</b> To validate our choice of atomic capabilities and understand their relative importance,
-            we conduct a leave-one-out analysis by systematically excluding questions that require a specific capability while keeping
-            the total number of training examples fixed. The figure below shows that each capability contributes meaningfully to overall
-            performance without being redundant. 
-          </p>
-          <img src="./static/images/loo.png" alt="Atomic Capability Coverage" class="small-centered-image">
+        <div class="flex-container">
+          <div class="content has-text-justified" style="flex: 1; padding: 10px;">
+            <p>
+              <b>B. Atomic Capability Coverage:</b> To validate our choice of atomic capabilities and understand their relative importance,
+              we conduct a leave-one-out analysis by systematically excluding questions that require a specific capability while keeping
+              the total number of training examples fixed. The figure shows that each capability contributes meaningfully to overall
+              performance without being redundant. 
+            </p>
+            <img src="./static/images/loo.png" alt="Atomic Capability Coverage" style="width: 100%;">
+          </div>
+
+          <div class="content has-text-justified" style="flex: 1; padding: 10px;">
+            <p>
+              <b>C. Instruction Tuning Ratio:</b> We vary the amount of instruction tuning data sampled from LLaVA-665K VIT to understand the impact 
+              of the mixing ratio on model performance. As we scale the VIT subset from 0% (pure compositional tuning) to 7% of LLaVA-665K VIT, 
+              we observe an upward trend with diminishing returns. These results suggest that instruction following capability is potentailly orthogonal to the 
+              capabilities of the base model and the atomic visual capabilities, and can be acquired with minimal instruction tuning data. 
+            </p>
+            <img src="./static/images/vit_scale.png" alt="VIT Data Ratio" style="width: 100%;">
+          </div>
         </div>
 
-        <div class = "content has-text-justified">
+        <div class="content has-text-justified">
           <p>
-            <b>compositional complexity range:</b> To isolate the effect of the range of compositional complexities while controlling for data quality,
+            <b>D. Compositional Complexity Range:</b> To isolate the effect of the range of compositional complexities while controlling for data quality,
             we generate three sets of 16K-sample compositional tuning data, each it k=1, k=1,2 and k=1,2,3. For fair comparison, we maintain consistent
             sample counts and use identical set of images in all three settings. The model trained on k=1,2,3 outperforms other two settings. 
             Although the model trained on k=1 data can solve tasks with lower compositional complexity, it does not generalize to higher k tasks.
           </p>
-          <img src="./static/images/k_range_scale.png" alt="Compositional Complexity Range" class="small-centered-image">
-        </div>
-
-        <div class = "content has-text-justified">
-          <p>
-            <b>Instruction Tuning Ratio:</b>  We vary the amount of instruction tuning data sampled from LLaVA-665K VIT to understand the impact 
-            of the mixing ratio on model performance. As we scale the VIT subset from 0% (pure compositional tuning) to 7% of LLaVA-665K VIT, 
-            we observe an upward trend with diminishing returns. These results suggest that instruction following capability is potentailly orthogonal to the 
-            capabilities of the base model and the atomic visual capabilities, and can be acquired with minimal instruction tuning data. 
-          </p>
-          <img src="./static/images/vit_scale.png" alt="VIT Data Ratio" class="small-centered-image">
+          <div class="has-text-centered">
+            <img src="./static/images/k_range_scale.png" alt="Compositional Complexity Range" style="max-width: 600px; width: 100%;">
+          </div>
         </div>
       </div>
     </div>
@@ -591,11 +595,9 @@
             complexity is designed to be balanced, the compositional complexity in LLaVA-665K VIT data shows a complexity cliff, characterized
             by a lack of higher k samples.
           </p>
-          <div class="has-text-centered">
-            <img src="./static/images/heatmap.png" alt="Capability Distribution" class="small-centered-image">
-          </div>
-          <div class="has-text-centered">
-            <img src="./static/images/llava_k_dist.png" alt="Llava k-distribution" class="small-centered-image">
+          <div class="has-text-centered flex-container">
+            <img src="./static/images/heatmap.png" alt="Capability Distribution" style="max-width: 48%;">
+            <img src="./static/images/llava_k_dist.png" alt="Llava k-distribution" style="max-width: 48%;">
           </div>
         </div>
       </div>
@@ -603,7 +605,7 @@
   </div>
 </section>
 
-<section class="section">
+<!-- <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
@@ -626,7 +628,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
