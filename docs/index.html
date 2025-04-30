@@ -430,9 +430,8 @@
             <b>Compositional Generalization to Higher Complexities:</b> We compare the performance of COMPACT (65K) and LLaVA-665K VIT (665K) at each 
             compositional complexity (k) level. COMPACT exceeds the LLaVA-665K baseline at k = (3,4,5) tasks while using significantly less training data.
           </p>
-          
           <div class="has-text-centered">
-            <img src="./static/images/4.png" alt="Performance Across Compositional Tuning Data Scales" class="small-centered-image">
+            <img src="./static/images/compositional_generalization.png" alt="Performance Across Compositional Tuning Data Scales" class="small-centered-image">
           </div>
           <p>
             <b>Performance Across Compositional Tuning Data Scales:</b> We fix the VIT subset (5% of LLaVA-665K) and scale the
@@ -442,15 +441,100 @@
             where the 8K COMPACT model often exceeds the VIT only baseline at 32K. This demonstrates the data efficiency of
             COMPACT, requiring substantially less data than LLaVA-665K VIT to achieve comparable or better results.
           </p>
-          
           <div class="has-text-centered">
-            <img src="/api/placeholder/800/400" alt="Qualitative Comparison" class="small-centered-image">
+            <img src="./static/images/compositional_data_scale.png" alt="Performance Across Compositional Tuning Data Scales" class="small-centered-image">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Ablations</h2>
+        
+        <div class="content has-text-justified">
+          <p>
+            We conduct extensive ablation studies to understand the impact of different components in COMPACT:
+          </p>
+          
+          <p>
+            <b>Matching Llava Dist:</b> We analyze how varying the maximum compositional complexity (k) in our training data affects model performance. Training with k=3 achieves the best balance between performance and data efficiency, while higher k values show diminishing returns.
+          </p>
+          <p>
+            Put a table here
+          </p>
+          <p>
+            <b>Atomic Capability Coverage:</b> We examine how the distribution of atomic capabilities in our training data influences model performance. A balanced distribution across all capability types proves most effective, highlighting the importance of comprehensive capability coverage.
+          </p>
+          <div class="has-text-centered">
+            <img src="./static/images/loo.png" alt="Atomic Capability Coverage" class="small-centered-image">
           </div>
           <p>
-            <b>Qualitative Comparison:</b> Examples that show responses from our compositionally-tuned COMPACT model and LLaVA-665K VIT 
-            model on complex queries that require multiple capabilities (k ≥ 3). Our model demonstrates better integration of visual 
-            capabilities which leads to more accurate responses.
+            <b>compositional complexity range:</b> Our quality verification step significantly improves performance by ensuring generated questions accurately reflect intended capability combinations and removing low-quality samples.
           </p>
+          <div class="has-text-centered">
+            <img src="./static/images/k_range_scale.png" alt="Compositional Complexity Range" class="small-centered-image">
+          </div>
+          <p>
+            <b>VIT Ratio:</b> Our quality verification step significantly improves performance by ensuring generated questions accurately reflect intended capability combinations and removing low-quality samples.
+          </p>
+          <div class="has-text-centered">
+            <img src="./static/images/vit_scale.png" alt="VIT Data Ratio" class="small-centered-image">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Quantitative Comparison</h2>
+        
+        <div class="content has-text-justified">
+          <p>
+            We perform detailed quantitative analysis comparing COMPACT with baseline models across different capability requirements and benchmarks:
+          </p>
+
+          <div class="has-text-centered">
+            <img src="./static/images/heatmap.png" alt="Capability Distribution" class="small-centered-image">
+          </div>
+          <div class="has-text-centered">
+            <img src="./static/images/llava_k_dist.png" alt="Llava k-distribution" class="small-centered-image">
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Qualitative Comparison</h2>
+        
+        <div class="content has-text-justified">
+          <p>
+            Below we showcase examples that demonstrate the superior performance of our COMPACT model compared to LLaVA-665K VIT,
+            particularly on complex queries requiring multiple capabilities (k ≥ 3).
+          </p>
+
+          <div class="has-text-centered">
+            <img src="./static/images/qualitative_1.png" alt="Qualitative Examples 1" class="small-centered-image">
+          </div>
+          <div class="has-text-centered">
+            <img src="./static/images/qualitative_2.png" alt="Qualitative Examples 2" class="small-centered-image">
+          </div>
+
         </div>
       </div>
     </div>
